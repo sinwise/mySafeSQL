@@ -27,7 +27,7 @@ def printCyan(prt):         print("\033[96m {}\033[00m" .format(prt))
 def printLightGray(prt):    print("\033[97m {}\033[00m" .format(prt))
 def printBlack(prt):        print("\033[98m {}\033[00m" .format(prt))
 
-# Loading variables defined within mysafesql.cfg configuration file
+# Loading variables defined within mysafesql.cfg configuration file...
 
 backup_enabled      = [DAILY_BACKUPS_ENABLED, WEEKLY_BACKUPS_ENABLED, MONTHLY_BACKUPS_ENABLED]
 backup_path_check   = [BACKUP_PATH_DAILY, BACKUP_PATH_WEEKLY, BACKUP_PATH_MONTHLY]
