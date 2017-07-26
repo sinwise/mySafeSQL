@@ -43,9 +43,6 @@ for backup_path_defined in backup_path_check:
             prGreen("Folder " + backup_path_defined + " already exists, moving to the next step...")
 
 
-
-
-
 #print "checking for databases names file."
 # if os.path.exists(DB_NAME):
 #    file1 = open(DB_NAME)
