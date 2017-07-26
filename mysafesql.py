@@ -1,53 +1,46 @@
 #!/usr/bin/python
 
+##
+##
+## mySafeSQL
+##
+## https://github.com/sinwise/mysafesql.git
+## http://www.sinwise.com/mysafesql
+##
+##
+
+# Modules
+
 import os
 import ConfigParser
 import time
 import datetime
 
-#### Script Configuration ####
+# Colors Definition
 
-# DAILY_BACKUPS_ENABLED     = True      # Enable Daily Backups - True/False
-# WEEKLY_BACKUPS_ENABLED        = True      # Enable Weekly Backups - True/False
-# MONTHLY_BACKUPS_ENABLED       = True      # Enable Monthly Backups - True/False
-# WEEKLY_BACKUPS_DAY        = 1         # 1 - Monday, 2, 3, 4, 5, 6, 7 - Sunday
-# MONTHLY_BACKUPS_DATE      = 28        # 1 to 31
-# DAILY_BACKUPS_RETENTION   = 7
-# WEEKLY_BACKUPS_RETENTION  = 4
-# MONTHLY_BACKUPS_RETENTION = 6
-# DB_HOST           = 'localhost'
-# DB_USER           = 'root'
-# DB_USER_PASSWORD      = '_root_user_password_'
-# DB_NAME           = 'databases.lst'
-# BACKUP_PATH_DAILY     = '/mnt/mysql-backups/daily/' + os.getenv('HOSTNAME') + '/' + time.strftime('%d-%m-%Y') + '/'
-# BACKUP_PATH_WEEKLY        = '/mnt/mysql-backups/weekly/' + os.getenv('HOSTNAME') + '/' + time.strftime('%d-%m-%Y') + '/'
-# BACKUP_PATH_MONTHLY       = '/mnt/mysql-backups/monthly/' + os.getenv('HOSTNAME') + '/' + time.strftime('%d-%m-%Y') + '/'
+def printRed(prt):          print("\033[91m {}\033[00m" .format(prt))
+def printGreen(prt):        print("\033[92m {}\033[00m" .format(prt))
+def printYellow(prt):       print("\033[93m {}\033[00m" .format(prt))
+def printLightPurple(prt):  print("\033[94m {}\033[00m" .format(prt))
+def printPurple(prt):       print("\033[95m {}\033[00m" .format(prt))
+def printCyan(prt):         print("\033[96m {}\033[00m" .format(prt))
+def printLightGray(prt):    print("\033[97m {}\033[00m" .format(prt))
+def printBlack(prt):        print("\033[98m {}\033[00m" .format(prt))
 
-#############################
-
-def prRed(prt): print("\033[91m {}\033[00m" .format(prt))
-def prGreen(prt): print("\033[92m {}\033[00m" .format(prt))
-def prYellow(prt): print("\033[93m {}\033[00m" .format(prt))
-def prLightPurple(prt): print("\033[94m {}\033[00m" .format(prt))
-def prPurple(prt): print("\033[95m {}\033[00m" .format(prt))
-def prCyan(prt): print("\033[96m {}\033[00m" .format(prt))
-def prLightGray(prt): print("\033[97m {}\033[00m" .format(prt))
-def prBlack(prt): print("\033[98m {}\033[00m" .format(prt))
-
-#############################
+# Loading variables defined within mysafesql.cfg
 
 backup_enabled      = [DAILY_BACKUPS_ENABLED, WEEKLY_BACKUPS_ENABLED, MONTHLY_BACKUPS_ENABLED]
 backup_path_check   = [BACKUP_PATH_DAILY, BACKUP_PATH_WEEKLY, BACKUP_PATH_MONTHLY]
 
 for backup_path_defined in backup_path_check:
     if not backup_path_defined:
-        prLightPurple("Skipping" + backup_path_defined + " folder check/create step as this hasn't been defined...")
+        prLightPurple("Skipping " + backup_path_defined + " folder check/create step as this hasn't been defined...")
     else:
         if not os.path.exists(backup_path_defined):
-                os.makedirs(backup_path_defined)
-                    prYellow("Creating backup folders for " + backup_path_defined + "...")
+            os.makedirs(backup_path_defined)
+            prYellow("Creating backup folders for " + backup_path_defined + "...")
         else:
-            prGreen("Folder " + backup_path_defined + " already exists, moving to next step...")
+            prGreen("Folder " + backup_path_defined + " already exists, moving to the next step...")
 
 
 
