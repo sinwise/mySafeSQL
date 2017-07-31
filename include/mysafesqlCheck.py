@@ -43,7 +43,7 @@ def CheckSystem():
 
         import yum
         yb = yum.YumBase()
-        yb.conf.downloadonly = True
+        yb.conf.install = True
         args = {'name':'pigz'}
         yb.install(**args)
         yb.buildTransaction()
