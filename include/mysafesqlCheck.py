@@ -17,6 +17,8 @@ installed_packages      = ["mysqlpump", "pigz"]
 
 def CheckSystem():
 
+    global isCentOS, isUbuntu
+
     if sys.platform.startswith('linux'):
         distro, version, dist_id = platform.linux_distribution()
         if "CentOS" in distro:
@@ -34,6 +36,5 @@ def CheckSystem():
 
     if isCentOS:
         printGreen("CentOS found on your server, checking packages...")
-
-    if isUbuntu:
+    elif isUbuntu:
         printGreen("Ubuntu found on your server, checking packages...")
