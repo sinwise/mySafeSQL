@@ -41,17 +41,24 @@ def CheckSystem():
         
         printGreen("CentOS found on your server, checking packages...")
 
-        import yum
-        yb          = yum.YumBase()
-        searchlist  = ['name']
-        arg         = ['pigz']
-        matches     = yb.searchGenerator(searchlist,arg)
+        yb = yum.YumBase()
+        yb.conf.downloadonly = True
+        args = {'name':'pigz'}
+        yb.install(**args)
+        yb.buildTransaction()
+        yb.processTransaction()
+
+        # import yum
+        # yb          = yum.YumBase()
+        # searchlist  = ['name']
+        # arg         = ['pigz']
+        # matches     = yb.searchGenerator(searchlist,arg)
         
-        for (package, matched_value) in matches:
+        # for (package, matched_value) in matches:
         
-            if package.name == 'pigz':
-                yb.install(package)
-                yb.buildTransaction()
+        #     if package.name == 'pigz':
+        #         yb.install(package)
+        #         yb.buildTransaction()
                 yb.processTransaction()
 
     elif isUbuntu:
