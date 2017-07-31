@@ -9,40 +9,17 @@
 ##
 ##
 
-# import os
-
-# def CheckSystem():
-#    print os.uname()
-
-    # base = yum.YumBase()
-    # if base.rpmdb.searchNevra(name='mysqlpump'):
-    #     print "installed"
-    # else:
-    #     print "not installed"
-
 import imp, sys, os, platform
 sys.path.append('')
 from mysafesqlColors import *
 
 def CheckSystem():
 
-    if platform.system() == 'Linux':
-
-        if (os.name == "Darwin"):
-            printRed("OS NOT supported")
-            exit()
-
-        if (os.name == "CentOS"):
-            printGreen("CentOS found...")
-# insert other possible OSes here
-# ...
-        else:
-            printRed("OS not supported")
-            exit()
-
-    else:
-        printRed("Currently only Linux platform is supported")
+    if not platform.linux_distribution() == "CentOS":
+        printRed("Nope...")
         exit()
+    else:
+        printGreen("Found CentOS installed...")
 
     # try:
     #     with open('/etc/redhat-release', 'rb', 0) as file, mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s:
