@@ -14,10 +14,9 @@
 import os, sys, socket, ConfigParser, imp, time, datetime
 sys.path.append('include')
 from mysafesqlColors import *
-from mysafesqlCheck import *
-from mysafesqlDaily import *
-from mysafesqlWeekly import *
-from mysafesqlMonthly import *
+# from mysafesqlDaily import *
+# from mysafesqlWeekly import *
+# from mysafesqlMonthly import *
 
 # Loading variables defined within mysafesql.cfg configuration file
 
@@ -31,7 +30,7 @@ host_stamp = socket.gethostname() + "/" + time.strftime('%d-%m-%Y')
 
 #### Daily Backups 
 
-CheckSystem()
+# CheckSystem()
 
 if data.DAILY_BACKUPS_ENABLED:
     if not (data.DAILY_BACKUPS_RETENTION_PERIOD <= 0):
