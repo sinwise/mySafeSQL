@@ -40,11 +40,12 @@ def CheckSystem():
     if isCentOS:
         
         printGreen("CentOS found on your server, checking packages...")
+        printGreen("Checking 'pigz' package...")
 
         import yum
         yb = yum.YumBase()
         yb.conf.install = True
-        args = {'name':'pigz', 'name':'htop'}
+        args = {'name':'pigz'}
         yb.install(**args)
         yb.buildTransaction()
         yb.processTransaction()
