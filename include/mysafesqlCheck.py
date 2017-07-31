@@ -13,16 +13,16 @@ import imp, sys, os, platform
 sys.path.append('')
 from mysafesqlColors import *
 
+
 def CheckSystem():
 
     osfound = platform.linux_distribution()
-
-        if osfound.find("CentOS") == -1:
-            printRed("Nope...")
-            print platform.linux_distribution()
-            exit()
-        else:
-            printGreen("Found CentOS installed...")
+    if not "CentOS" in osfound:
+        printRed("Nope...")
+        #print platform.linux_distribution()
+        exit()
+    else:
+        printGreen("Found CentOS installed...")
 
     # try:
     #     with open('/etc/redhat-release', 'rb', 0) as file, mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s:
