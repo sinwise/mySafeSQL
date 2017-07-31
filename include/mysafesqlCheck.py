@@ -20,7 +20,7 @@ def CheckSystem():
 
     if sys.platform.startswith('linux'):
         distro = platform.linux_distribution()
-        if distro == "CentOS":
+        if distro in ('CentOS', 'centos'):
             printGreen("CentOS found...")
         elif distro in ('Debian', 'debian'):
             printGreen("Debian found...")
