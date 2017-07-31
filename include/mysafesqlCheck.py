@@ -41,6 +41,7 @@ def CheckSystem():
         
         printGreen("CentOS found on your server, checking packages...")
 
+        import yum
         yb = yum.YumBase()
         yb.conf.downloadonly = True
         args = {'name':'pigz'}
