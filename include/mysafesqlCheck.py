@@ -17,7 +17,7 @@ def CheckSystem():
 
     if not platform.linux_distribution() == "CentOS":
         printRed("Nope...")
-        printRed platform.linux_distribution()
+        print platform.linux_distribution()
         exit()
     else:
         printGreen("Found CentOS installed...")
