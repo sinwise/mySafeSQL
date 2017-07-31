@@ -27,7 +27,7 @@ from mysafesqlColors import *
 def CheckSystem():
 
     try:
-        with open('/etc/*release*', 'rb', 0) as file, mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s:
+        with open('/etc/redhat-release', 'rb', 0) as file, mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s:
             if s.find(b'CentOS') == -1:
                 isCentOS = True
             if s.find(b'Ubuntu') == -1:
