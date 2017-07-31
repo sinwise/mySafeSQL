@@ -44,8 +44,9 @@ def CheckSystem():
         import yum
 
         yb              = yum.YumBase()
-        # yb.conf.cache   = 1 # enable cache
+        yb.conf.cache   = 1 # enable cache
         installed       = yb.rpmdb.returnPackages()
+        searchlist      = ['name']
         packages        = ['pigz']
 
         for package in packages:
@@ -59,18 +60,18 @@ def CheckSystem():
                 yb.buildTransaction()
                 yb.processTransaction()
         
-        # import yum
-        # yb          = yum.YumBase()
-        # searchlist  = ['name']
-        # arg         = ['pigz']
-        # matches     = yb.searchGenerator(searchlist,arg)
+        import yum
+        yb          = yum.YumBase()
+        searchlist  = ['name']
+        arg         = ['pigz']
+        matches     = yb.searchGenerator(searchlist,arg)
         
-        # for (package, matched_value) in matches:
+        for (package, matched_value) in matches:
         
-        #     if package.name == 'pigz':
-        #         yb.install(package)
-        #         yb.buildTransaction()
-        #         yb.processTransaction()
+            if package.name == 'pigz':
+                yb.install(package)
+                yb.buildTransaction()
+                yb.processTransaction()
 
     elif isUbuntu:
 
