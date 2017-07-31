@@ -26,15 +26,14 @@ def CheckSystem():
         else:
             printRed("Aborting, your operating system is not currenly supported.")
     elif sys.platform.startswith('darwin'):
-        printRed("Mac OS is not currenly supported")
+        printRed("Aborting, Mac OS is not currenly supported.")
         exit()
     elif sys.platform.startswith('openbsd'):
-        printRed("OpenBSD is not currenly supported")
+        printRed("Aborting, OpenBSD is not currenly supported.")
         exit()
 
     if isCentOS:
         printGreen("CentOS found on your server, checking packages...")
-
 
     if isUbuntu:
         printGreen("Ubuntu found on your server, checking packages...")
