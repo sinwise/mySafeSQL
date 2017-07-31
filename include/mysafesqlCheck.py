@@ -49,12 +49,12 @@ def CheckSystem():
         arg         = ['pigz']
         matches     = yb.searchGenerator(searchlist,arg)
         
-        for (package, matched_value) in matches:
+        for (package) in matches:
         
             if package.name == 'pigz':
                 yb.install(package)
-                # yb.buildTransaction()
-                # yb.processTransaction()
+                yb.buildTransaction()
+                yb.processTransaction()
 
     elif isUbuntu:
 
