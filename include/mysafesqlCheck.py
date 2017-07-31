@@ -21,9 +21,7 @@ def CheckSystem():
         distro, version, dist_id = platform.linux_distribution()
         if "CentOS" in distro:
             isCentOS = True
-            checkDependencies()
         elif "Ubuntu" in distro:
-            checkDependencies()
             isUbuntu = True
         else:
             printRed("Aborting, your operating system is not currenly supported.")
@@ -33,8 +31,6 @@ def CheckSystem():
     elif sys.platform.startswith('openbsd'):
         printRed("OpenBSD is not currenly supported")
         exit()
-
-def checkDependencies():
 
     if isCentOS:
         printGreen("CentOS found on your server, checking packages...")
