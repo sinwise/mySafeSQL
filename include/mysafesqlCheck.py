@@ -42,25 +42,6 @@ def CheckSystem():
         printGreen("CentOS found on your server, checking packages...")
 
         import yum
-
-        yb              = yum.YumBase()
-        yb.conf.cache   = 1 # enable cache
-        installed       = yb.rpmdb.returnPackages()
-        searchlist      = ['name']
-        packages        = ['pigz']
-
-        for package in packages:
-        
-            if package in installed:
-                print('{0} is already installed, skipping...'.format(package))
-            else:
-                print('Installing {0}'.format(package))
-                yb.install(package)
-                yb.resolveDeps()
-                yb.buildTransaction()
-                yb.processTransaction()
-        
-        import yum
         yb          = yum.YumBase()
         searchlist  = ['name']
         arg         = ['pigz']
