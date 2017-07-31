@@ -19,8 +19,8 @@ installed_packages      = ["mysqlpump", "pigz"]
 def CheckSystem():
 
     if sys.platform.startswith('linux'):
-        distro, version, dist_id = platform.linux_distribution()
-        if distro == 'CentOS':
+        distro = platform.linux_distribution()
+        if distro == "CentOS":
             printGreen("CentOS found...")
         elif distro in ('Debian', 'debian'):
             printGreen("Debian found...")
@@ -34,18 +34,9 @@ def CheckSystem():
             printGreen("Ubuntu found...")
         else:
             printRed("Aborting, your operating system is not currenly supported.")
-
-        args['version'] = version
-        args['dist_id'] = dist_id
-
     elif sys.platform.startswith('darwin'):
-            # TODO Support Darwin platforms that aren't OS X.
-            #osx_version = platform.mac_ver()[0]
         printRed("Mac OS is not currenly supported")
-
     elif sys.platform.startswith('openbsd'):
-            # cls = OpenBSDBootstrapper
-            # args['version'] = platform.uname()[2]
         printRed("OpenBSD is not currenly supported")
 
     # try:
