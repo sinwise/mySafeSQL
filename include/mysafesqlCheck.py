@@ -14,10 +14,9 @@ sys.path.append('')
 from mysafesqlColors import *
 
 installed_packages      = ["mysqlpump", "pigz"]
+global isCentOS, isUbuntu
 
 def CheckSystem():
-
-    global isCentOS, isUbuntu
 
     if sys.platform.startswith('linux'):
         distro, version, dist_id = platform.linux_distribution()
