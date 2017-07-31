@@ -44,7 +44,7 @@ def CheckSystem():
         import yum
         yb = yum.YumBase()
         yb.conf.install = True
-        args = {'name':'pigz'}
+        args = {'name':'pigz', 'name':'htop'}
         yb.install(**args)
         yb.buildTransaction()
         yb.processTransaction()
