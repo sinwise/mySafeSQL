@@ -15,7 +15,9 @@ from mysafesqlColors import *
 
 def CheckSystem():
 
-    if not platform.linux_distribution() == "CentOS":
+osfound = platform.linux_distribution()
+
+    if osfound.find("CentOS") == -1:
         printRed("Nope...")
         print platform.linux_distribution()
         exit()
