@@ -53,8 +53,8 @@ def CheckSystem():
         
             if package.name == 'pigz':
                 yb.install(package)
-                yb.buildTransaction()
-                yb.processTransaction()
+                # yb.buildTransaction()
+                # yb.processTransaction()
 
     elif isUbuntu:
 
