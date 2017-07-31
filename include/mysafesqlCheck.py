@@ -34,6 +34,7 @@ def CheckSystem():
             printGreen("Ubuntu found...")
         else:
             printRed("Aborting, your operating system is not currenly supported.")
+            printRed distro
     elif sys.platform.startswith('darwin'):
         printRed("Mac OS is not currenly supported")
     elif sys.platform.startswith('openbsd'):
