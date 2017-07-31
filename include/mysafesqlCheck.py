@@ -12,8 +12,6 @@
 import imp, sys, platform
 sys.path.append('')
 from mysafesqlColors import *
-
-installed_packages      = ["mysqlpump", "pigz"]
 global isCentOS, isUbuntu
 
 def CheckSystem():
@@ -46,7 +44,7 @@ def CheckSystem():
         import yum
 
         yb              = yum.YumBase()
-        yb.conf.cache   = 1 # enable cache
+        # yb.conf.cache   = 1 # enable cache
         installed       = yb.rpmdb.returnPackages()
         packages        = ['pigz']
 
@@ -59,7 +57,6 @@ def CheckSystem():
                 yb.install(package)
                 yb.resolveDeps()
                 yb.buildTransaction()
-
                 yb.processTransaction()
         
         # import yum
