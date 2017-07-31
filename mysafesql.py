@@ -11,36 +11,148 @@
 
 # Modules
 
-import os
-import ConfigParser
-import time
-import datetime
-
-# Colors Definition
-
-def printRed(prt):          print("\033[91m {}\033[00m" .format(prt))
-def printGreen(prt):        print("\033[92m {}\033[00m" .format(prt))
-def printYellow(prt):       print("\033[93m {}\033[00m" .format(prt))
-def printLightPurple(prt):  print("\033[94m {}\033[00m" .format(prt))
-def printPurple(prt):       print("\033[95m {}\033[00m" .format(prt))
-def printCyan(prt):         print("\033[96m {}\033[00m" .format(prt))
-def printLightGray(prt):    print("\033[97m {}\033[00m" .format(prt))
-def printBlack(prt):        print("\033[98m {}\033[00m" .format(prt))
+import os, sys, socket, ConfigParser, imp, time, datetime
+sys.path.append('include')
+from mysafesqlColors import *
+from mysafesqlCheck import *
+from mysafesqlDaily import *
+from mysafesqlWeekly import *
+from mysafesqlMonthly import *
 
 # Loading variables defined within mysafesql.cfg configuration file
 
-backup_enabled      = [DAILY_BACKUPS_ENABLED, WEEKLY_BACKUPS_ENABLED, MONTHLY_BACKUPS_ENABLED]
-backup_path_check   = [BACKUP_PATH_DAILY, BACKUP_PATH_WEEKLY, BACKUP_PATH_MONTHLY]
+def getVarFromFile(filename):
+    f = open(filename)
+    global data
+    data = imp.load_source('data', '', f)
+    f.close()
+getVarFromFile('config/mysafesql.cfg')
+host_stamp = socket.gethostname() + "/" + time.strftime('%d-%m-%Y')
 
-for backup_path_defined in backup_path_check:
-    if not backup_path_defined:
-        prLightPurple("Skipping " + backup_path_defined + " folder check/create step as this hasn't been defined...")
-    else:
-        if not os.path.exists(backup_path_defined):
-            os.makedirs(backup_path_defined)
-            prYellow("Creating backup folders for " + backup_path_defined + "...")
+#### Daily Backups 
+
+CheckSystem()
+
+if data.DAILY_BACKUPS_ENABLED:
+    if not (data.DAILY_BACKUPS_RETENTION_PERIOD <= 0):
+        if data.DAILY_BACKUPS_PATH:
+            if not os.path.exists(data.DAILY_BACKUPS_PATH):
+                os.makedirs(data.DAILY_BACKUPS_PATH + host_stamp)
+                printYellow("Backup folder '" + data.DAILY_BACKUPS_PATH + host_stamp + "' has been created...")
+            else:
+                printGreen("Folder '" + data.DAILY_BACKUPS_PATH + host_stamp + "' exists, moving to the next step...")    
         else:
-            prGreen("Folder " + backup_path_defined + " already exists, moving to the next step...")
+            printLightPurple("Skipping daily backups folder '" + data.DAILY_BACKUPS_PATH + host_stamp + "' folder check / create step as this hasn't been defined...")
+    else:
+        printLightPurple("Skipping daily backups as the rentention period is invalid, please change 'DAILY_BACKUPS_RETENTION_PERIOD'...")
+else:
+    printLightPurple("Skipping daily folder '" + data.DAILY_BACKUPS_PATH + host_stamp + "' check / create step as this has been disabled...")
+
+#### Weekly Backups
+
+if data.WEEKLY_BACKUPS_ENABLED:
+    if not (data.WEEKLY_BACKUPS_START_DAY > 31) | (data.WEEKLY_BACKUPS_START_DAY < 1):
+        if not (data.WEEKLY_BACKUPS_RETENTION_PERIOD <= 0):
+            if data.WEEKLY_BACKUPS_PATH:
+                if not os.path.exists(data.WEEKLY_BACKUPS_PATH):
+                    os.makedirs(data.WEEKLY_BACKUPS_PATH + host_stamp)
+                    printYellow("Backup folder '" + data.WEEKLY_BACKUPS_PATH + host_stamp + "' has been created...")
+                else:
+                    printGreen("Folder '" + data.WEEKLY_BACKUPS_PATH + host_stamp + "' exists, moving to the next step...")    
+            else:
+                printLightPurple("Skipping weekly backups folder '" + data.WEEKLY_BACKUPS_PATH + host_stamp + "' folder check / create step as this hasn't been defined...")
+        else:
+            printLightPurple("Skipping weekly backups as the rentention period is invalid, please change 'WEEKLY_BACKUPS_RETENTION_PERIOD'...")
+    else:
+        printLightPurple("Skipping weekly backups as the day value is invalid, please change 'WEEKLY_BACKUPS_START_DAY'...")
+else:
+    printLightPurple("Skipping weekly folder '" + data.WEEKLY_BACKUPS_PATH + host_stamp + "' check / create step as this has been disabled...")
+
+
+#### Monthly Backups
+
+if data.MONTHLY_BACKUPS_ENABLED:
+    if not (data.MONTHLY_BACKUPS_RETENTION_PERIOD <= 0):
+        if data.MONTHLY_BACKUPS_PATH:
+            if not os.path.exists(data.MONTHLY_BACKUPS_PATH):
+                os.makedirs(data.MONTHLY_BACKUPS_PATH + host_stamp)
+                printYellow("Backup folder '" + data.MONTHLY_BACKUPS_PATH + host_stamp + "' has been created...")
+            else:
+                printGreen("Folder '" + data.MONTHLY_BACKUPS_PATH + host_stamp + "' exists, moving to the next step...")    
+        else:
+            printLightPurple("Skipping monthly backups folder '" + data.MONTHLY_BACKUPS_PATH + host_stamp + "' folder check / create step as this hasn't been defined...")
+    else:
+        printLightPurple("Skipping monthly backups as the rentention period is invalid, please change 'MONTHLY_BACKUPS_RETENTION_PERIOD'...")
+else:
+    printLightPurple("Skipping monthly folder '" + data.MONTHLY_BACKUPS_PATH + host_stamp + "' check / create step as this has been disabled...")
+
+
+# for enabled_backups in backups_enabled_list:
+
+#     if enabled_backups:
+
+#         for defined_backup_paths in backups_path_check_list:
+
+#             if backups_path_check_list:
+
+#                 if not os.path.exists(defined_backup_paths):
+
+#                     os.makedirs(defined_backup_paths + host_stamp)
+#                     printYellow("Creating backup folders for " + defined_backup_paths + host_stamp + "...")
+
+#                 else:
+
+#                     printGreen("Folder " + defined_backup_paths + host_stamp + " exists, moving to the next step...")
+
+#             else:
+
+#                 printLightPurple("Skipping " + defined_backup_paths + host_stamp + " folder check / create step as this hasn't been defined...")
+
+#     else:
+
+#         printLightPurple("Skipping folder check / create step as this has been disabled...")
+
+################
+
+# for backup_path_defined in backup_path_check:
+
+#     if not backup_path_defined:
+#         printLightPurple("Skipping " + backup_path_defined + host_stamp + " folder check/create step as this hasn't been defined...")
+#     else:
+
+#         if data.DAILY_BACKUPS_ENABLED:
+
+#             if not os.path.exists(backup_path_defined):
+#                 os.makedirs(backup_path_defined + host_stamp)
+#                 printYellow("Creating backup folders for " + backup_path_defined + host_stamp + "...")
+#             else:
+#                 printGreen("Folder " + backup_path_defined + host_stamp + " exists, moving to the next step...")
+#         else:
+#             printLightPurple("Skipping " + backup_path_defined + host_stamp + " folder check/create step as this has been disabled...")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #print "checking for databases names file."
