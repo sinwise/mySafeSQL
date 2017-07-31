@@ -45,11 +45,13 @@ def CheckSystem():
 
         import yum
 
-        yb.conf.cache = 1 # enable cache
-        installed = yb.rpmdb.returnPackages()
+        yb              = yum.YumBase()
+        yb.conf.cache   = 1 # enable cache
+        installed       = yb.rpmdb.returnPackages()
+        packages        = ['pigz']
 
-        packages = ['pigz']
         for package in packages:
+        
             if package in installed:
                 print('{0} is already installed, skipping...'.format(package))
             else:
